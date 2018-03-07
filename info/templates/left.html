@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>iShoe</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="{%static "/index/css/public.css" %}" />
+    <script src="{%static "/index/js/jquery.min.js" %}"></script>
+    <script src="{%static "/index/js/public.js" %}"></script>
+</head>
+<body id="bg">
+    <div class="container">
+		<div class="leftsidebar_box">
+			<a href="main.html" target="main"><div class="line">
+					<img src="{%static "/index/img/coin01.png" %}" />&nbsp;&nbsp;主页
+				</div></a>
+			<dl class="system_log">
+				<dt>
+                    <img class="icon1" src="{%static "/index/img/coin03.png" %}" />
+                    <img class="icon2" src="{%static "/index/img/coin04.png" %}"/> 离床检测
+                    <img class="icon3" src="{%static "/index/img/coin19.png" %}"/>
+                    <img class="icon4" src="{%static "/index/img/coin20.png" %}"/>
+				</dt>
+				<dd>
+                    <img class="coin11" src="{%static "/index/img/coin111.png" %}"/>
+                    <img class="coin22"	src="{%static "/index/img/coin222.png" %}"/>
+                    <a class="cks" href="index.jsp" target="main">实时检测</a><img class="icon5" src="{%static "/index/img/coin21.png" %}"/>
+				</dd>
+			</dl>
+			<dl class="system_log">
+				<dt>
+					<img class="icon1" src="{%static "/index/img/coin01.png" %}" /><img class="icon2"
+						src="{%static "/index/img/coin02.png" %}" />信息管理<img class="icon3"
+						src="{%static "/index/img/coin19.png" %}" /><img class="icon4"
+						src="{%static "/index/img/coin20.png" %}" />
+				</dt>
+				<dd>
+					<img class="coin11" src="{%static "/index/img/coin111.png" %}"/><img class="coin22"
+						src="{%static "/index/img/coin222.png"%}" /><a class="cks" href="p3.html"
+						target="main">个人信息</a><img class="icon5" src="{%static  "index/img/coin21.png" %}"/>
+                </dd>
+                <dd>
+					<img class="coin11" src="{%static "/index/img/coin111.png" %}"/><img class="coin22"
+						src="{%static "/index/img/coin222.png"  %}"/><a class="cks" href="p3.html"
+						target="main">设备信息</a><img class="icon5" src="{%static "/index/img/coin21.png" %}"/>
+				</dd>
+			</dl>
+			
+
+		</div>
+    </div>
+</body>
+</html>
