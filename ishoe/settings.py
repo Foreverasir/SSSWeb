@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'info',
 ]
 
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'ishoe.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/home/yang/django/ishoe/info/templates',],
+        'DIRS': ['../info/templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
