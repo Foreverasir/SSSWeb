@@ -6,6 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>用户状态</title>
+	<link rel="stylesheet" type="text/css" href="{%static "/bootstrap/css/bootstrap.min.css"%}" />
 	<link rel="stylesheet" type="text/css" href="{%static "/index/css/normalize.css"%}" />
 	<link rel="stylesheet" type="text/css" href="{%static "/index/css/default.css"%}"/>
 	<link rel="stylesheet" type="text/css" href="{%static "/index/fonts/font-awesome-4.3.0/css/font-awesome.min.css" %}"/>
@@ -17,34 +18,47 @@
 </head>
 <body >
 	<div class="warning">
-		{%for warning in warnings%}
-			<span class="warning__item">
+		kankanyoumeityou
+		{%for warning in warnings%}				 
+				<button type="button" class="btn btn-warning" style="width:100%;font-size:20px;font-family:\"Microsoft YaHei\", serif;">
 				<img src="{%static "/index/img/Alert.png"%}" width="30px" height="30px"/>
-				{{warning.name}} 正在 {{warning.location}} 移动  
-				<button class="warning__finish"> 处理完毕 </button>
-			</span>
+				{{warning.name}} 正在 {{warning.location}} 移动 </button>			
+		{%endfor%}
+		{%for m in miss%}				 
+			<button type="button" class="btn btn-danger" style="width:100%;font-size: 20px;font-family:\"Microsoft YaHei\", serif;">
+			<img src="{%static "/index/img/Alert.png"%}" width="30px" height="30px"/>
+			{{m.person.name}}的传感器断连，可能在 {{m.rpi.location}}房间，建议查看 </button>			
 		{%endfor%}
 	</div>
 	<div id="theGrid" class="indexmain">
-			<section class="grid">
+			<section class="grid" >
 				{%for state in states%}
-				<a class="grid__item" href="#">
+					{%ifequal state.move_flag 1%}
+					<div class="grid__item" style="background:orangered">
+					{%endifequal%}
+					{%ifequal state.move_flag 2%}
+					<div class="grid__item" style="background:white">
+					{%endifequal%}
+					{%ifequal state.move_flag 0%}
+					<div class="grid__item">
+					{%endifequal%}
 					<h2 class="title title--preview">{{state.person.name}}</h2>
 					<div class="meta meta--preview">
 						<img class="meta__avatar" src="{%static "/index/img/authors/1.png"%}" alt="author01" /> 
 						<span class="meta__state" ><i class="fa fa-calendar-o"></i>
-							{%if state.move_flag%} 
-								状态：移动
+							{%ifequal state.move_flag 1%}
+								状态：预测走动
 							<img src="{%static "/index/img/signRED.png"%}"/>								
 							{%else%}
-								状态：静止
+								状态：预测静止
 							<img src="{%static "/index/img/signGREEN.png"%}"/>								
-							{%endif%}
+							{%endifequal%}
 						</span>
 						<br>
-						<span class="meta__position"><i class="fa fa-location-arrow"></i> 位置：{{state.rpi.location}}</span>
+						<span class="meta__position"><i class="fa fa-location-arrow"></i> 位置：{{state.rpi.location}}号房</span>
 					</div>
-				</a>
+					
+				</div>
 				{%endfor%}
 			</section>
 		</div>

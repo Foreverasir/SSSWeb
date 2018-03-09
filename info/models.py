@@ -2,7 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
+from datetime import datetime
+from django.utils import timezone
 # Create your models here.
 '''用户：
     姓名，地址，
@@ -42,18 +43,19 @@ class Sensortag(models.Model):
     magn_y=models.FloatField()
     magn_z=models.FloatField()
 
-    move_flag=models.BooleanField(default=False)
+    time=models.DateTimeField()
 
     def __unicode__(self):
         return "adsa"
 
 class State(models.Model):
-    person=models.ForeignKey(Person)
+    person=models.ForeignKey(Person,primary_key=True)
     rpi=models.ForeignKey(Rpi)
-    move_flag=models.BooleanField(default=False)
-
+    #move_flag=models.BooleanField(default=False)
+    move_flag=models.PositiveSmallIntegerField()
+    time=models.DateTimeField()
     def __unicode__(self):
-        return self.move_flag
+        return unicode(self.time)
 
 class Warning:
     def __init__(self,name,location):

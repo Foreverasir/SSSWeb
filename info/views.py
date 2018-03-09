@@ -2,9 +2,9 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render,render_to_response
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,JsonResponse
 from models import Person,State,Warning
-
+import datetime
 # Create your views here.
 def state_list(requests):
     return render_to_response('sum.html',)
@@ -43,10 +43,15 @@ def get_left(requests):
 
 def get_index(requests):
     abnormal_state=State.objects.filter(move_flag=True)
+    start=datetime.datetime.now()+datetime.timedelta(hours=8)-datetime.timedelta(minutes=1)
+    State.objects.filter(time__lt=start).update(move_flag=2)
     warnings=[]
     for s in abnormal_state:
         warning=Warning(s.person.name,s.rpi.location)
         warnings.append(warning)
     return render_to_response('index.html',{'states':State.objects.all(),'warnings':warnings})
 
-
+def ajax_list(requests):
+    print("req")
+    test_dict={"kobe":["room1","0"],"tracy":["room 2","1"]}
+    return JsonResponse(test_dict)
