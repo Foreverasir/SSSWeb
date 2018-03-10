@@ -13,7 +13,7 @@ class Person(models.Model):
     address=models.CharField(max_length=50)
     birth=models.DateField()
     ble_mac=models.CharField(max_length=30,primary_key=True)
-
+    gender=models.BooleanField(default=False)
     def __unicode__(self):
         return self.name
 
@@ -54,6 +54,7 @@ class State(models.Model):
     #move_flag=models.BooleanField(default=False)
     move_flag=models.PositiveSmallIntegerField()
     time=models.DateTimeField()
+    
     def __unicode__(self):
         return unicode(self.time)
 
