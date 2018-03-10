@@ -18,55 +18,55 @@
 </head>
 <body >
 	<div class="warning">
-		kankanyoumeityou
 		{%for warning in warnings%}				 
-				<button type="button" class="btn btn-warning" style="width:100%;font-size:20px;font-family:\"Microsoft YaHei\", serif;">
+			<button type="button" class="btn-warning">
 				<img src="{%static "/index/img/Alert.png"%}" width="30px" height="30px"/>
-				{{warning.name}} 正在 {{warning.location}} 移动 </button>			
+				{{warning.name}} 正在 {{warning.location}} 移动 
+			</button>			
 		{%endfor%}
 		{%for m in miss%}				 
-			<button type="button" class="btn btn-danger" style="width:100%;font-size: 20px;font-family:\"Microsoft YaHei\", serif;">
-			<img src="{%static "/index/img/Alert.png"%}" width="30px" height="30px"/>
-			{{m.person.name}}的传感器断连，可能在 {{m.rpi.location}}房间，建议查看 </button>			
+			<button type="button" class="btn-danger">
+				<img src="{%static "/index/img/Alert.png"%}" width="30px" height="30px"/>
+				{{m.person.name}}的传感器断连，可能在 {{m.rpi.location}}房间，建议查看 
+			</button>			
 		{%endfor%}
 	</div>
 	<div id="theGrid" class="indexmain">
-			<section class="grid" >
-				{%for state in states%}
-					{%ifequal state.move_flag 1%}
-					<div class="grid__item" style="background:orangered">
-					{%endifequal%}
-					{%ifequal state.move_flag 2%}
-					<div class="grid__item" style="background:white">
-					{%endifequal%}
-					{%ifequal state.move_flag 0%}
-					<div class="grid__item">
-					{%endifequal%}
-					<h2 class="title title--preview">{{state.person.name}}</h2>
-					<div class="meta meta--preview">
-						<img class="meta__avatar" src="{%static "/index/img/authors/1.png"%}" alt="author01" /> 
-						<span class="meta__state" ><i class="fa fa-calendar-o"></i>
-							{%ifequal state.move_flag 1%}
-								状态：预测走动
-							<img src="{%static "/index/img/signRED.png"%}"/>								
-							{%else%}
-								状态：预测静止
-							<img src="{%static "/index/img/signGREEN.png"%}"/>								
-							{%endifequal%}
-						</span>
-						<br>
-						<span class="meta__position"><i class="fa fa-location-arrow"></i> 位置：{{state.rpi.location}}号房</span>
-					</div>
-					
+		<section class="grid" >
+			{%for state in states%}
+				{%ifequal state.move_flag 1%}
+				<div class="grid__item" style="background:#e65858">
+				{%endifequal%}
+				{%ifequal state.move_flag 2%}
+				<div class="grid__item" style="background:#e70e0e;">
+				{%endifequal%}
+				{%ifequal state.move_flag 0%}
+				<div class="grid__item">
+				{%endifequal%}
+				<h2 class="title title--preview">{{state.person.name}}</h2>
+				<div class="meta meta--preview">
+					<img class="meta__avatar" src="{%static "/index/img/authors/1.png"%}" alt="author01" /> 
+					<span class="meta__state" ><i class="fa fa-calendar-o"></i>
+						{%ifequal state.move_flag 1%}
+							状态：移动
+						<img src="{%static "/index/img/signRED.png"%}"/>								
+						{%else%}
+							状态：静止
+						<img src="{%static "/index/img/signGREEN.png"%}"/>								
+						{%endifequal%}
+					</span>
+					<br>
+					<span class="meta__position"><i class="fa fa-location-arrow"></i> 位置：{{state.rpi.location}}</span>
 				</div>
-				{%endfor%}
-			</section>
-		</div>
-		
-		<script type="text/javascript">
-			window.setInterval(function(){
-				window.location.reload()
-			},2000);
-		</script>
+			</div>
+			{%endfor%}
+		</section>
+	</div>
+	
+	<script type="text/javascript">
+		window.setInterval(function(){
+			window.location.reload()
+		},2000);
+	</script>
 </body>
 </html>

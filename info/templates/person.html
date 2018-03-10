@@ -28,7 +28,7 @@
             <tr>
                 <th>蓝牙编号</th>                
                 <th>姓名</th>
-                <th>年龄</th>
+                <th>出生日期</th>
                 <th>性别</th>
                 <th>家庭地址</th>
                 <th>操作</th>
@@ -39,7 +39,7 @@
                 <tr >
                     <td na="nid">{{ row.id }}</td>
                     <td na="user">{{ row.name }}</td>
-                    <td na="age">{{ row.age }}</td>
+                    <td na="date">{{ row.birth }}</td>
                     <td na="gender">{{ row.gender }}</td>
                     <td na="address">{{ row.address }}</td>
                     <td>
@@ -122,7 +122,7 @@
 <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="alert alert-danger" role="alert">
-            <h3>删除学生信息？</h3>
+            <h3>删除信息？</h3>
             <div>...<input style="display: none;" type="text" id="delNid" /></div>
             <div>
                 <button type="button" class="btn btn-default">取消</button>

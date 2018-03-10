@@ -795,14 +795,14 @@ button:focus {
     right: 5px;
     bottom: 5px;
     left: 5px;
-    border: 1px solid rgba(74, 74, 74, 0.075);
+    border: 2px solid rgba(74, 74, 74, 0.075);
     -webkit-transition: opacity 0.3s;
     transition: opacity 0.3s;
   }
 
   .grid__item:hover::before,
   .grid__item:focus::before {
-    border: 3px solid rgba(129, 196, 131, 0.5);
+    border: 3px solid rgba(235, 21, 14, 0.836);
   }
 
   .grid__item--loading.grid__item::before {
@@ -896,10 +896,16 @@ button:focus {
 }
 /*# sourceMappingURL=style1.css.map */
 .indexmain{
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 0px;
-  margin-bottom: 10px;
+  height: 100%;
+  overflow: auto;
+  margin-left: 510px;
+  margin-right: 3px;
+  /* margin-bottom: 5px; */
+  margin-top: 2px;
+  border-top: 3px solid #0a0a0a;
+  border-bottom: 3px solid #0a0a0a;
+	border-right: 3px solid #0a0a0a;
+	border-left: 3px solid #0a0a0a;
 }
 
 .warning{
@@ -908,11 +914,14 @@ button:focus {
   overflow: auto;
   margin-left: 5px;
   margin-right: 5px;
-  margin-top: 0px;
-  border-style:groove;
-  border-width: 0px; 
+  /* margin-bottom: 5px; */
+  /* margin-top: 1px; */
+  border-top: 3px solid #e70e0e;
+  border-bottom: 3px solid #e70e0e;
+	border-right: 3px solid #e70e0e;
+	border-left: 3px solid #e70e0e;
   float:left; 
-  background-color: #F0F0F0;
+  background-color: #ffffff;
 }
 .warning__item{
 		width:100%;
@@ -925,4 +934,17 @@ button:focus {
     font-weight: bold;
     font-size: 1.5em;
     text-align: center;
+}
+
+.btn-warning{
+  width:100%;
+  font-size:20px;
+  font-family:"Microsoft YaHei", serif;
+
+}
+
+.btn-danger{
+  width:100%;
+  font-size:20px;
+  font-family:"Microsoft YaHei", serif;
 }

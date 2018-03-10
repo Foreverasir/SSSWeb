@@ -141,13 +141,14 @@ li {
 	height: 100%;
 	margin: auto;
 	position: absolute;
-
+	margin-top: 2px;
 }
 
 .leftsidebar_box {
 	width: 220px;
 	height: 100%;
 	background-color: #ffffff;
+	border-top: 3px solid #e65858;
 }
 
 .leftsidebar_box dt {
