@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponseRedirect,JsonResponse
-from models import Person,State,Warning
+from models import Person,State,Warning,PersonInfo
 import datetime
 # Create your views here.
 def state_list(requests):
@@ -55,3 +55,34 @@ def ajax_list(requests):
     print("req")
     test_dict={"kobe":["room1","0"],"tracy":["room 2","1"]}
     return JsonResponse(test_dict)
+
+def handle_person(requests):
+    all=[]
+    for p in Person.objects.all():
+        all.append(PersonInfo(p.ble_mac,p.name,str(p.birth),p.gender,p.address))
+    return render_to_response('person.html',{'person_list':all})
+
+def add_person(requests):
+    print(requests.POST)
+    response={"status":True,"message":None}
+    try:
+        rname=requests.POST.get('name')
+        rbirth=requests.POST.get('birth')
+        raddress=requests.POST.get('address')
+        if requests.POST.get('gender')=='true':
+            rgender=True
+        else:
+            rgender=False
+        rble_mac=requests.POST.get('ble_mac')
+        check=Person.objects.filter(ble_mac=rble_mac)
+        if check:
+            response["status"]=False
+            response["message"]="输入了已使用的蓝牙地址！"
+        else:
+            p=Person.objects.create(name=rname,birth=rbirth,address=raddress,gender=rgender,ble_mac=rble_mac)
+            response.update(PersonInfo(rble_mac,rname,rbirth,rgender,raddress).toJson())
+            #return PersonInfo(rble_mac,rname,rbirth,rgender,raddress).toJson()
+    except Exception as e:
+        response["status"]=False
+        response["message"]="输入数据错误"
+    return JsonResponse(response)

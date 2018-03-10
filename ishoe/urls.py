@@ -28,4 +28,6 @@ urlpatterns = [
     url(r'^left/$',views.get_left),
     url(r'^index/$',views.get_index),
     url(r'^ajax/$',views.ajax_list),
+    url(r'^person/$',views.handle_person),
+    url(r'^add_person/$',views.add_person),
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

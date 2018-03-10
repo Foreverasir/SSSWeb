@@ -61,3 +61,28 @@ class Warning:
     def __init__(self,name,location):
         self.name=name
         self.location=location
+
+class PersonInfo:
+    def __init__(self,id,name,birth,gender,address):
+        self.name=name
+        self.id=id
+        self.gender=gender
+        self.address=address
+        self.gender="女"
+        if gender==False:
+            self.gender="男"
+        today=date.today()
+        t=time.strptime(birth,"%Y-%m-%d")
+        birth=date(t[0],t[1],t[2])
+        try:
+            b=birth.replace(year=today.year)
+        except ValueError:
+            b=birth.replace(year=today.year,day=birth.day-1)
+        if b>today:
+            self.age=today.year-birth.year-1
+        else:
+            self.age=today.year-birth.year
+    
+    def toJson(self):
+        d={'name':self.name,'id':self.id,'gender':self.gender,'address':self.address,'age':self.age}
+        return d
