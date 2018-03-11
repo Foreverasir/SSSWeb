@@ -42,7 +42,7 @@ def get_left(requests):
     return render_to_response('left.html')
 
 def get_index(requests):
-    abnormal_state=State.objects.filter(move_flag=True)
+    abnormal_state=State.objects.filter(move_flag__gt=0)
     start=datetime.datetime.now()+datetime.timedelta(hours=8)-datetime.timedelta(minutes=1)
     State.objects.filter(time__lt=start).update(move_flag=2)
     warnings=[]

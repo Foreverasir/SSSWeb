@@ -19,7 +19,7 @@
 <body >
 	<div class="warning">
 		{%for warning in warnings%}				 
-			<button type="button" class="btn-warning">
+			<button class="btn-warning">
 				<img src="{%static "/index/img/Alert.png"%}" width="30px" height="30px"/>
 				{{warning.name}} 正在 {{warning.location}} 移动 
 			</button>			
@@ -35,14 +35,21 @@
 		<section class="grid" >
 			{%for state in states%}
 				{%ifequal state.move_flag 1%}
-				<div class="grid__item" style="background:#e65858">
+				<div class="grid__item move" style="background-color: #e65858">
 				{%endifequal%}
 				{%ifequal state.move_flag 2%}
-				<div class="grid__item" style="background:#e70e0e;">
+				<div class="grid__item light" style="background-color: #e65858">
+				{%endifequal%}
+				{%ifequal state.move_flag 3%}
+				<div class="grid__item light_move">
+				{%endifequal%}
+				{%ifequal state.move_flag 4%}
+				<div class="grid__item missing">
 				{%endifequal%}
 				{%ifequal state.move_flag 0%}
-				<div class="grid__item">
+				<div class="grid__item static">
 				{%endifequal%}
+				
 				<h2 class="title title--preview">{{state.person.name}}</h2>
 				<div class="meta meta--preview">
 					<img class="meta__avatar" src="{%static "/index/img/authors/1.png"%}" alt="author01" /> 
@@ -63,10 +70,10 @@
 		</section>
 	</div>
 	
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		window.setInterval(function(){
 			window.location.reload()
 		},2000);
-	</script>
+	</script> -->
 </body>
 </html>
