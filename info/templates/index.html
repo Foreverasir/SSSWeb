@@ -19,13 +19,13 @@
 <body >
 	<div class="warning">
 		{%for warning in warnings%}				 
-			<button class="btn-warning">
+			<button class="move btn-warning">
 				<img src="{%static "/index/img/Alert.png"%}" width="30px" height="30px"/>
 				{{warning.name}} 正在 {{warning.location}} 移动 
 			</button>			
 		{%endfor%}
 		{%for m in miss%}				 
-			<button type="button" class="btn-danger">
+			<button type="button" class="missing btn-danger">
 				<img src="{%static "/index/img/Alert.png"%}" width="30px" height="30px"/>
 				{{m.person.name}}的传感器断连，可能在 {{m.rpi.location}}房间，建议查看 
 			</button>			
@@ -35,37 +35,37 @@
 		<section class="grid" >
 			{%for state in states%}
 				{%ifequal state.move_flag 1%}
-				<div class="grid__item move" style="background-color: #e65858">
+				<div class="move grid__item">
 				{%endifequal%}
 				{%ifequal state.move_flag 2%}
-				<div class="grid__item light" style="background-color: #e65858">
+				<div class="light grid__item">
 				{%endifequal%}
 				{%ifequal state.move_flag 3%}
-				<div class="grid__item light_move">
+				<div class="light_move grid__item">
 				{%endifequal%}
 				{%ifequal state.move_flag 4%}
-				<div class="grid__item missing">
+				<div class="missing grid__item">
 				{%endifequal%}
 				{%ifequal state.move_flag 0%}
-				<div class="grid__item static">
+				<div class="static grid__item">
 				{%endifequal%}
 				
-				<h2 class="title title--preview">{{state.person.name}}</h2>
-				<div class="meta meta--preview">
-					<img class="meta__avatar" src="{%static "/index/img/authors/1.png"%}" alt="author01" /> 
-					<span class="meta__state" ><i class="fa fa-calendar-o"></i>
-						{%ifequal state.move_flag 1%}
-							状态：移动
-						<img src="{%static "/index/img/signRED.png"%}"/>								
-						{%else%}
-							状态：静止
-						<img src="{%static "/index/img/signGREEN.png"%}"/>								
-						{%endifequal%}
-					</span>
-					<br>
-					<span class="meta__position"><i class="fa fa-location-arrow"></i> 位置：{{state.rpi.location}}</span>
+					<h2 class="title title--preview">{{state.person.name}}</h2>
+					<div class="meta meta--preview">
+						<img class="meta__avatar" src="{%static "/index/img/authors/1.png"%}" alt="author01" /> 
+						<span class="meta__state" ><i class="fa fa-calendar-o"></i>
+							{%ifequal state.move_flag 1%}
+								状态：移动
+							<img src="{%static "/index/img/signRED.png"%}"/>								
+							{%else%}
+								状态：静止
+							<img src="{%static "/index/img/signGREEN.png"%}"/>								
+							{%endifequal%}
+						</span>
+						<br>
+						<span class="meta__position"><i class="fa fa-location-arrow"></i> 位置：{{state.rpi.location}}</span>
+					</div>
 				</div>
-			</div>
 			{%endfor%}
 		</section>
 	</div>

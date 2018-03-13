@@ -242,10 +242,11 @@ button:focus {
   font-size: 1.2em;
   color: #0a0a0a;
   font-family: "Playfair Display", serif;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .title--preview {
+  text-align: left;
   background-color: transparent;
   -webkit-flex: 1;
   flex: 1;
@@ -929,6 +930,7 @@ button:focus {
   margin: 5px 1% 0 1%;
   font-size:20px;
   font-family:"Microsoft YaHei", serif;
+  
   border: 2px solid #070000ce
 }
 
@@ -942,22 +944,26 @@ button:focus {
   font-family:"Microsoft YaHei", serif;
 }
 
-.grid__item static{
+.static{
   background-color: white;
 }
 
-.grid__item move{
+.move{
   background-color:#e65858;
 }
 
-.grid__item light{
-  background-color: #e65858;
+.light{
+  background-color: rgba(226, 0, 0, 0.536);;
+}
+.light:hover,
+.light:focus{
+  border: 4px solid rgba(226, 226, 0, 0.936);
 }
 
-.grid__item light_move{
+.light_move{
   background-color:  rgba(226, 29, 23, 0.836);
 }
 
-.grid__item missing{
+.missing{
   background-color: #313131;
 }
