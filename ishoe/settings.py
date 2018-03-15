@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'info',
 ]
 
@@ -83,7 +82,7 @@ DATABASES = {
         'ENGINE':'django.db.backends.mysql',
         'NAME':'ishoe',
         'USER':'root',
-        'PASSWORD':'123456',
+        'PASSWORD':'111',
         
     }
 }

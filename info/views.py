@@ -3,7 +3,8 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponseRedirect,JsonResponse
-from models import Person,State,Warning,PersonInfo
+from models import Person,State,Warning,PersonInfo,Rpi
+import models
 import datetime
 # Create your views here.
 def state_list(requests):
@@ -25,7 +26,7 @@ def submit(requests):
         if not requests.POST.get('ble_mac',''):
             errors.append("输入蓝牙地址。")
         if not errors:
-            print(requests.POST['name'])
+            #print(requests.POST['name'])
             p=Person.objects.filter(ble_mac=requests.POST['ble_mac'])
             if len(p)>0 :
                 errors.append("该蓝牙已被使用")
@@ -42,14 +43,15 @@ def get_left(requests):
     return render_to_response('left.html')
 
 def get_index(requests):
-    abnormal_state=State.objects.filter(move_flag__gt=0)
     start=datetime.datetime.now()+datetime.timedelta(hours=8)-datetime.timedelta(minutes=1)
-    State.objects.filter(time__lt=start).update(move_flag=2)
+    State.objects.filter(time__lt=start).update(move_flag=4)
+    abnormal_state=State.objects.filter(move_flag__gt=0,person__ignore=False)    
     warnings=[]
     for s in abnormal_state:
-        warning=Warning(s.person.name,s.rpi.location)
+        warning=Warning(s.person.name,s.rpi.location,s.move_flag)
         warnings.append(warning)
-    return render_to_response('index.html',{'states':State.objects.all(),'warnings':warnings})
+    models.Heartbeat.objects.filter(time__lt=start).update(flag=True)
+    return render_to_response('index.html',{'states':State.objects.all(),'warnings':warnings,'heartbeats':models.Heartbeat.objects.all()})
 
 def ajax_list(requests):
     print("req")
@@ -63,7 +65,6 @@ def handle_person(requests):
     return render_to_response('person.html',{'person_list':all})
 
 def add_person(requests):
-    print(requests.POST)
     response={"status":True,"message":None}
     try:
         rname=requests.POST.get('name')
@@ -86,3 +87,96 @@ def add_person(requests):
         response["status"]=False
         response["message"]="输入数据错误"
     return JsonResponse(response)
+
+def delete_person(requests):
+    response={'status':False}
+    try:
+        nid=requests.GET.get('nid')
+        Person.objects.filter(ble_mac=nid).delete()
+        response['status']=True
+        #print(nid)
+    except Exception as e:
+        response={'status':False}
+    return JsonResponse(response)
+
+def update_person(requests):
+    response={"status":False,"message":None}
+    try:
+        rname=requests.POST.get('name')
+        rbirth=requests.POST.get('birth')
+        raddress=requests.POST.get('address')
+        if requests.POST.get('render')=='true':
+            rgender=True
+        else:
+            rgender=False
+        rble_mac=requests.POST.get('ble_mac')
+        raw=requests.POST.get('raw')
+        p=Person.objects.filter(ble_mac=raw)
+        if p:
+            p.update(ble_mac=rble_mac,birth=rbirth,address=raddress,gender=rgender,name=rname)
+            response["status"]=True
+        else:
+            response["message"]="输入错误的蓝牙地址"
+    except Exception as e:
+        response["message"]="输入数据错误"
+    return JsonResponse(response)
+            
+def handle_device(requests):
+    return render_to_response('device.html',{"device":Rpi.objects.all()})
+
+def add_device(requests):
+    response={"status":False,"message":None}
+    try:
+        rip=requests.POST.get('ip')
+        rlocation=requests.POST.get('location')
+        check=Rpi.objects.filter(ip=rip)
+        if check:
+            response["message"]="输入了已使用的IP地址"
+        else:
+            Rpi.objects.create(ip=rip,location=rlocation)
+            response["status"]=True            
+    except Exception as e:
+        print(e)
+        response["message"]="输入数据错误"
+    return JsonResponse(response)
+
+def del_device(requests):
+    response={"status":False,"message":None}
+    try:
+        rip=requests.GET.get('ip')
+        Rpi.objects.filter(ip=rip).delete()
+        response["status"]=True
+    except Exception as e:
+        print(e)
+    return JsonResponse(response)
+
+def update_device(requests):
+    response={"status":False,"message":None}
+    try:
+        rip=requests.POST.get('ip')
+        rlocation=requests.POST.get('location')
+        raw=requests.POST.get('raw')
+        p=Rpi.objects.filter(ip=raw)
+        if p:
+            p.update(ip=rip,location=rlocation)
+            response["status"]=True
+        else:
+            response["message"]="输入错误的蓝牙地址"
+    except Exception as e:
+        print(e)
+        response["message"]="输入数据错误"
+    return JsonResponse(response)
+
+def change_status(requests):
+    try:
+        rid=requests.POST.get('id')
+        rstatus=requests.POST.get('status')
+        if rstatus=="true":
+            p=Person.objects.filter(ble_mac=rid).update(ignore=False)
+        else:
+            p=Person.objects.filter(ble_mac=rid).update(ignore=True)
+
+    except Exception as e:
+        print(e)
+    return
+    

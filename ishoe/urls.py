@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/$', admin.site.urls),
     url(r'^list/$',views.state_list),
     url(r'^sign-up/$',views.info_detail),
     url(r'^submit/$',views.submit),
@@ -30,4 +30,11 @@ urlpatterns = [
     url(r'^ajax/$',views.ajax_list),
     url(r'^person/$',views.handle_person),
     url(r'^add_person/$',views.add_person),
+    url(r'^del_person/$',views.delete_person),
+    url(r'^update_person/$',views.update_person),
+    url(r'^device/$',views.handle_device),
+    url(r'^add_device/$',views.add_device),
+    url(r'^del_device/$',views.del_device),
+    url(r'^update_device/$',views.update_device),
+    url(r'^change_status/$',views.change_status),
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

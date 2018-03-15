@@ -2,8 +2,10 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from datetime import datetime
+from datetime import datetime,date
 from django.utils import timezone
+from django.http import JsonResponse
+import time
 # Create your models here.
 '''用户：
     姓名，地址，
@@ -14,6 +16,7 @@ class Person(models.Model):
     birth=models.DateField()
     ble_mac=models.CharField(max_length=30,primary_key=True)
     gender=models.BooleanField(default=False)
+    ignore=models.BooleanField(default=False)
     def __unicode__(self):
         return self.name
 
@@ -25,9 +28,9 @@ class Rpi(models.Model):
         return self.ip
 
 class Sensortag(models.Model):
-    person=models.ForeignKey(Person)
+    person=models.ForeignKey(Person,on_delete=models.CASCADE)
 
-    rpi=models.ForeignKey(Rpi)
+    rpi=models.ForeignKey(Rpi,on_delete=models.CASCADE)
 
     light=models.FloatField()
 
@@ -49,19 +52,26 @@ class Sensortag(models.Model):
         return "adsa"
 
 class State(models.Model):
-    person=models.ForeignKey(Person,primary_key=True)
-    rpi=models.ForeignKey(Rpi)
+    person=models.ForeignKey(Person,primary_key=True,on_delete=models.CASCADE)
+    rpi=models.ForeignKey(Rpi,on_delete=models.CASCADE)
     #move_flag=models.BooleanField(default=False)
     move_flag=models.PositiveSmallIntegerField()
     time=models.DateTimeField()
-    
     def __unicode__(self):
         return unicode(self.time)
 
+class Heartbeat(models.Model):
+    rpi=models.ForeignKey(Rpi,primary_key=True,on_delete=models.CASCADE)
+    time=models.DateTimeField()
+    flag=models.BooleanField(default=False)
+
 class Warning:
-    def __init__(self,name,location):
+    def __init__(self,name,location,type):
         self.name=name
         self.location=location
+        self.type=type
+
+    
 
 class PersonInfo:
     def __init__(self,id,name,birth,gender,address):
